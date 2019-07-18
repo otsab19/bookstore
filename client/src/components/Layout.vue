@@ -69,7 +69,7 @@ export default {
 <style scoped lang="scss">
 #layout {
     display: block;
-    padding: calc(44px + 0.5rem) 1rem 1rem;
+    padding: calc(44px + 0.5rem) 1rem 2rem;
     margin: 0 auto;
 
     @media (min-width: 768px) {
