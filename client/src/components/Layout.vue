@@ -93,7 +93,7 @@ export default {
     left: 0;
     display: block;
     transform: translate(-650px, 0);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 15px 0px;
+    box-shadow: 0 1px 2px 0 var(--accents-2);
     transition: all 0.4s cubic-bezier(0.4, 0, 0, 1);
 
     &.open {
@@ -127,7 +127,7 @@ export default {
     width: 100%;
     height: 44px;
     z-index: 9999999;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 15px 0px;
+    box-shadow: 0 1px 2px 0 var(--accents-2);
     display: flex;
     align-items: center;
     @media (min-width: 768px) {
