@@ -32,8 +32,8 @@ body {
 :root {
     --white: #ffffff;
     --accents-1: #fafafa;
-    --accents-2: #eaeaea;
-    --gray: #888888;
+    --accents-2: rgba(0, 0, 0, .10);
+    --gray: #999999;
     --black: #000000;
 }
 
