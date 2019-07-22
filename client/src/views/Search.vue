@@ -144,8 +144,12 @@
         },
         watch: {
             query() {
-                if (this.query) this.searchBooks(this.query)
-                else this.clearBooks([])
+                if (this.query)  {
+                    this.searchBooks(this.query)
+                }
+                else {
+                    this.searchedBooks = []
+                }
             },
         },
     }
@@ -169,3 +173,5 @@
         }
     }
 </style>
+
+
