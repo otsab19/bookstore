@@ -1,6 +1,6 @@
 <template>
     <div id="page">
-        <UserForm v-model="user" @input="register">
+        <UserForm v-model="user" @input="register(user)">
             <template v-slot:header>
                 <h2>
                     <font-awesome-icon
@@ -24,7 +24,7 @@
 
 <script>
     import UserForm from '../components/UserForm'
-    import firebase from "firebase"
+    import {mapActions} from "vuex"
 
     export default {
         name: 'register',
@@ -39,16 +39,7 @@
                 },
             }
         },
-        methods: {
-            async register() {
-                try {
-                    await firebase.auth().createUserWithEmailAndPassword(this.user.email, this.user.password)
-                    this.$router.push('/')
-                } catch (e) {
-                    alert(e)
-                }
-            }
-        },
+        methods: mapActions(['register'])
     }
 </script>
 

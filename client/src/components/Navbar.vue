@@ -14,7 +14,22 @@
                             <span>{{ route.text }}</span>
                         </router-link>
                     </li>
-                    <li>
+                    <li v-if="currentUserEmail !== null">
+                        <span class="sidebar-nav-element">
+                            <font-awesome-icon icon="user" class="icon"/>
+                            {{currentUserEmail}}
+                        </span>
+                    </li>
+                    <li v-if="isCurrentUserRegistered === false">
+                        <span @click="$router.push('/login')" class="sidebar-nav-element">
+                            <font-awesome-icon
+                                    icon="sign-in-alt"
+                                    class="icon"
+                            />
+                            <span>log in</span>
+                        </span>
+                    </li>
+                    <li v-else>
                         <span @click="logout" class="sidebar-nav-element">
                             <font-awesome-icon
                                     icon="sign-out-alt"
@@ -57,7 +72,7 @@
 
 <script>
     import Logo from './Logo'
-    import firebase from "firebase"
+    import {mapActions, mapGetters} from "vuex"
 
     export default {
         name: 'Navbar',
@@ -90,11 +105,8 @@
         components: {
             Logo,
         },
-        methods: {
-            logout() {
-                firebase.auth().signOut().then(()=>this.$router.push('/login'))
-            }
-        }
+        computed: mapGetters(['isCurrentUserRegistered', 'currentUserEmail']),
+        methods: mapActions(['logout'])
     }
 </script>
 
@@ -113,7 +125,7 @@
             height: calc(100vh - 4rem);
             justify-content: flex-end;
             padding-right: 1.75rem;
-            border-right: 1px solid var(--accents-2);
+            box-shadow: inset -1px 0 0 var(--accents-2);
         }
     }
 
@@ -127,16 +139,13 @@
         margin-top: 0;
     }
 
-    li + li {
-        margin-top: 10px;
-    }
-
     .sidebar-nav-element {
         display: inline-flex;
         align-items: center;
         cursor: pointer;
         color: var(--gray);
         text-decoration: none;
+        padding: 8px 0;
 
         &.router-link-exact-active {
             color: var(--black);
@@ -155,7 +164,7 @@
     }
 
     .icon {
-        margin-right: 0.8rem;
+        margin-right: 8px;
     }
 
     #logo {

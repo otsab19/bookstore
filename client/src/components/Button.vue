@@ -37,12 +37,12 @@ export default {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 5px 9px;
+    padding: 6px 10px;
     color: var(--gray);
     font-weight: 700;
     cursor: pointer;
     text-transform: uppercase;
-    border-radius: 5px;
+    border-radius: 4px;
     font-size: 0.875rem;
     user-select: none;
 
@@ -82,6 +82,6 @@ export default {
 }
 
 .iconandtext {
-    margin-right: 0.5rem;
+    margin-right: 5px;
 }
 </style>

@@ -1,44 +1,56 @@
 <template>
-    <router-view ontouchstart="" />
+    <router-view ontouchstart=""/>
 </template>
 
 <script>
-export default {
-    name: 'app',
-}
+    import firebase from "firebase"
+
+    export default {
+        name: 'app',
+        created() {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    if (user.isAnonymous === false) {
+                        this.$store.commit('setCurrentUserRegistered', true)
+                        this.$store.commit('setCurrentUserEmail', user.email)
+                    }
+                } else {
+                    firebase.auth().signInAnonymously()
+                }
+            })
+        }
+    }
 </script>
 
 <style lang="scss">
-body {
-    margin: 0;
-    padding: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    box-sizing: border-box;
-    background: var(--accents-1);
-    -webkit-tap-highlight-color: transparent;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-        Helvetica, Arial, sans-serif;
-    font-size: 16px;
-}
+    body {
+        margin: 0;
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        box-sizing: border-box;
+        background: var(--accents-1);
+        -webkit-tap-highlight-color: transparent;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-size: 16px;
+    }
+    *,
+    *:before,
+    *:after {
+        box-sizing: inherit;
+        outline: 0;
+    }
 
-*,
-*:before,
-*:after {
-    box-sizing: inherit;
-    outline: 0;
-}
+    :root {
+        --white: #ffffff;
+        --accents-1: #fafafa;
+        --accents-2: #e5e5e5;
+        --gray: #707070;
+        --black: #2e2e2e;
+    }
 
-:root {
-    --white: #ffffff;
-    --accents-1: #fafafa;
-    --accents-2: rgba(0, 0, 0, .10);
-    --gray: #999999;
-    --black: #000000;
-}
-
-::selection {
-    background-color: #79ffe1;
-    color: #000;
-}
+    ::selection {
+        background-color: #79ffe1;
+        color: #000;
+    }
 </style>

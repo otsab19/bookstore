@@ -43,7 +43,7 @@ export default {
         height: 18vh;
         max-height: 150px;
         color: #fff;
-        border-radius: 5px;
+        border-radius: 4px;
         background-size: cover;
         background-position: center center;
         user-select: none;

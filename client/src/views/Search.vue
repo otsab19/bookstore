@@ -160,7 +160,7 @@
         display: flex;
         flex: auto;
         font-weight: 700;
-        border-radius: 5px;
+        border-radius: 4px;
         font-size: 1rem;
         padding: 0 32px;
         line-height: 50px;

@@ -28,6 +28,7 @@ import {faGithub} from '@fortawesome/free-brands-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {rtdbPlugin} from "vuefire";
 import firebase from "firebase"
+import store from "./store"
 
 //font-awesome-icon
 library.add(
@@ -70,15 +71,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 Vue.use(rtdbPlugin);
 
-
-let app = null;
-
-firebase.auth().onAuthStateChanged(() => {
-    if (!app) {
-        new Vue({
-            router,
-            render: h => h(App),
-        }).$mount('#app')
-    }
-})
+new Vue({
+    router,
+    store,
+    render: h => h(App),
+}).$mount('#app')
 
