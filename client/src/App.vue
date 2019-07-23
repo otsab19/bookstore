@@ -12,10 +12,10 @@
                 if (user) {
                     if (user.isAnonymous === false) {
                         this.$store.commit('setCurrentUserRegistered', true)
-                        this.$store.commit('setCurrentUserEmail', user.email)
                     }
                 } else {
                     firebase.auth().signInAnonymously()
+                    this.$store.commit('setCurrentUserRegistered', false)
                 }
             })
         }

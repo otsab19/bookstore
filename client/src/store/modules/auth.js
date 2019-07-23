@@ -3,12 +3,10 @@ import {router} from '../../router'
 
 const state = {
     isCurrentUserRegistered: false,
-    currentUserEmail: null
 };
 
 const getters = {
     isCurrentUserRegistered: state => state.isCurrentUserRegistered,
-    currentUserEmail: state => state.currentUserEmail
 };
 
 const actions = {
@@ -18,7 +16,6 @@ const actions = {
             await firebase.auth().currentUser.linkWithCredential(credential)
             let email = await firebase.auth().currentUser.email
             commit('setCurrentUserRegistered', true)
-            commit('setCurrentUserEmail', email)
             router.push('/')
         } catch (e) {
             console.log(e)
@@ -29,7 +26,6 @@ const actions = {
             await firebase.auth().signInWithEmailAndPassword(user.email, user.password)
             let email = await firebase.auth().currentUser.email
             commit('setCurrentUserRegistered', true)
-            commit('setCurrentUserEmail', email)
             router.push('/')
         } catch (e) {
             console.log(e)
@@ -39,7 +35,6 @@ const actions = {
         try {
             await firebase.auth().signOut()
             commit('setCurrentUserRegistered', false)
-            commit('setCurrentUserEmail', null)
             router.push('/')
         } catch (e) {
             console.log(e)
@@ -49,7 +44,6 @@ const actions = {
 
 const mutations = {
     setCurrentUserRegistered: (state, payload) => state.isCurrentUserRegistered = payload,
-    setCurrentUserEmail: (state, payload) => state.currentUserEmail = payload
 };
 
 export default {
