@@ -14,10 +14,10 @@
                             <span>{{ route.text }}</span>
                         </router-link>
                     </li>
-                    <li v-if="currentUserEmail !== null">
+                    <li v-if="isCurrentUserRegistered === true">
                         <span class="sidebar-nav-element">
                             <font-awesome-icon icon="user" class="icon"/>
-                            {{currentUserEmail}}
+                            <span>account</span>
                         </span>
                     </li>
                     <li v-if="isCurrentUserRegistered === false">
@@ -105,7 +105,7 @@
         components: {
             Logo,
         },
-        computed: mapGetters(['isCurrentUserRegistered', 'currentUserEmail']),
+        computed: mapGetters(['isCurrentUserRegistered']),
         methods: mapActions(['logout'])
     }
 </script>
