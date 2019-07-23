@@ -47,7 +47,7 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 1rem 2rem;
-    border-radius: 5px;
+    border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.12) 0 10px 30px;
     position: relative;
     z-index: 5000;
@@ -55,7 +55,7 @@ export default {
 }
 
 #book-thumbnail {
-    border-radius: 5px;
+    border-radius: 4px;
     transform: translate(0, -35px);
     user-select: none;
     object-fit: cover;

@@ -1,6 +1,6 @@
 <template>
     <div id="page">
-        <UserForm v-model="user" @input="login">
+        <UserForm v-model="user" @input="login(user)">
             <template v-slot:header>
                 <h2>
                     <font-awesome-icon
@@ -22,7 +22,7 @@
 
 <script>
     import UserForm from '../components/UserForm'
-    import firebase from "firebase"
+    import {mapActions} from "vuex"
 
     export default {
         name: 'login',
@@ -37,16 +37,7 @@
                 },
             }
         },
-        methods: {
-            async login() {
-                try {
-                    await firebase.auth().signInWithEmailAndPassword(this.user.email, this.user.password)
-                    this.$router.push('/')
-                } catch (e) {
-                    alert(e)
-                }
-            },
-        },
+        methods: mapActions(['login'])
     }
 </script>
 

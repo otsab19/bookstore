@@ -97,7 +97,7 @@ export default {
     justify-content: center;
     padding: 16px 32px 32px;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 4px;
     width: 100%;
     max-width: 384px;
 }
@@ -105,7 +105,7 @@ export default {
 .form-label {
     background-color: var(--accents-1);
     display: flex;
-    border-radius: 5px;
+    border-radius: 4px;
     border: 1px solid var(--accents-2);
     align-items: center;
     margin: 0 auto 10px;
