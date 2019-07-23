@@ -14,7 +14,6 @@ const actions = {
         try {
             let credential = await firebase.auth.EmailAuthProvider.credential(user.email, user.password);
             await firebase.auth().currentUser.linkWithCredential(credential)
-            let email = await firebase.auth().currentUser.email
             commit('setCurrentUserRegistered', true)
             router.push('/')
         } catch (e) {
@@ -24,7 +23,6 @@ const actions = {
     async login({commit},user) {
         try {
             await firebase.auth().signInWithEmailAndPassword(user.email, user.password)
-            let email = await firebase.auth().currentUser.email
             commit('setCurrentUserRegistered', true)
             router.push('/')
         } catch (e) {
