@@ -11,7 +11,7 @@
         <Button :is-loading="isLoading" submit type="submit">register</Button>
       </template>
       <template v-slot:bottom-link>
-        <router-link id="form-link" to="/login">Already have an account? Log in! </router-link>
+        <router-link id="form-link" to="/login">Already have an account? Log in!</router-link>
       </template>
     </UserForm>
   </div>
