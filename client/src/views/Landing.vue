@@ -32,10 +32,11 @@
     text-align: center;
 
     h1 {
-      font-weight: 600;
+      font-weight: 700;
     }
 
     p {
+      font-size: 1.1rem;
       margin: 0;
     }
 
@@ -45,10 +46,9 @@
   }
 
   .big-button-wrapper {
-    display: flex;
+    display:flex;
     flex-direction: row;
     scroll-snap-type: x mandatory;
-    scroll-padding: 50%;
     overflow-x: auto;
   }
 
@@ -58,7 +58,6 @@
     font-size: 2rem;
     font-weight: 700;
     color: #fff;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 10px 30px;
     border-radius: 5px;
     background-size: cover;
     background-position: center center;
