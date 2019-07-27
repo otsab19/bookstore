@@ -7,7 +7,7 @@
       <div class="big-button four">Top authors</div>
     </div>
     <div class="hero">
-      <h1>Welcome to bookstore📚</h1>
+      <h1>Welcome!</h1>
       <p>We make looking up books online easy.
         <br/><strong> Just browse our endless stock, </strong>
         and save your favorites for later.
@@ -38,6 +38,13 @@
     p {
       font-size: 1.1rem;
       margin: 0;
+
+      br {
+        display: none;
+        @media(min-width: 768px) {
+          display: block;
+        }
+      }
     }
 
     strong {
@@ -46,7 +53,7 @@
   }
 
   .big-button-wrapper {
-    display:flex;
+    display: flex;
     flex-direction: row;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
