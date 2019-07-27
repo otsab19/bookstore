@@ -1,137 +1,141 @@
 <template>
-    <div>
-        <div id="layout">
-            <div id="mobile-bar">
-                <span style="display: flex; flex:auto;justify-content: center;">
-                    <Button
-                        number
-                        icon="bars"
-                        @click.native.stop="toggleNavbar"
-                    />
-                </span>
-                <span style="display: flex; flex:auto;justify-content: center;">
-                    <Logo />
-                </span>
-                <span style="display: flex; flex:auto"></span>
-            </div>
-            <div class="navbar" ref="navbar" :class="{ open: isNavbarOpen }">
-                <Navbar />
-            </div>
-            <div class="page">
-                <slot name="page" />
-            </div>
-        </div>
+  <div>
+    <div id="mobile-bar">
+      <div class="mobile-button" @click.stop="toggleNavbar"/>
+      <Logo style="margin: 0 auto"/>
     </div>
+    <div class="navbar" ref="navbar" :class="{ open: isNavbarOpen }">
+      <div class="navbar-scroll">
+        <Navbar/>
+      </div>
+    </div>
+    <div class="page">
+      <div class="page-content">
+        <router-view/>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import Navbar from './Navbar'
-import { mapGetters } from 'vuex'
-import Logo from './Logo'
-import Button from './Button'
+  import Navbar from './Navbar'
+  import {mapGetters, mapActions} from 'vuex'
+  import Logo from './Logo'
 
-export default {
+  export default {
     name: 'layout',
     components: {
-        Navbar,
-        Logo,
-        Button,
-    },
-    data() {
-        return {
-            isNavbarOpen: false,
-        }
-    },
-    created() {
-        window.addEventListener('touchstart', this.close)
-        window.addEventListener('click', this.close)
-    },
-    destroyed() {
-        window.removeEventListener('touchstart', this.close)
-        window.removeEventListener('click', this.close)
+      Navbar,
+      Logo,
     },
     computed: {
-        ...mapGetters(['isResponseGood', 'isLoading']),
+      ...mapGetters(['isNavbarOpen']),
     },
     methods: {
-        toggleNavbar() {
-            this.isNavbarOpen = !this.isNavbarOpen
-        },
-        close(e) {
-            if (this.isNavbarOpen && !this.$refs.navbar.contains(e.target)) {
-                this.isNavbarOpen = false
+      ...mapActions(['openNavbar', 'closeNavbar']),
+      toggleNavbar() {
+        if (this.isNavbarOpen) {
+          this.closeNavbar()
+        } else {
+          this.openNavbar()
+        }
+      },
+      close(e) {
+        if (this.isNavbarOpen) {
+          this.$nextTick(function () {
+            let el = this.$refs.navbar
+            let target = e.target
+            if ((el !== target) && !el.contains(target)) {
+              this.closeNavbar()
             }
-        },
+          })
+        }
+      },
     },
-}
+    created() {
+      document.addEventListener('click', this.close)
+      document.addEventListener('touchstart', this.close)
+    },
+    destroyed() {
+      document.removeEventListener('click', this.close)
+      document.removeEventListener('touchstart', this.close)
+    },
+  }
 </script>
 
 <style scoped lang="scss">
-#layout {
-    display: block;
-    padding: calc(44px + 0.5rem) 1rem 2rem;
-    margin: 0 auto;
-
-    @media (min-width: 768px) {
-        display: grid;
-        min-height: 100vh;
-        max-width: 1440px;
-        grid-template-columns: 0.2fr 1fr;
-        grid-gap: 1.75rem;
-        padding: 2rem;
-    }
-}
-
-.navbar {
-    padding: 1rem 1rem 1rem 2rem;
-    background-color: var(--white);
+  .navbar {
+    transition: width 0.3s, left 0.3s;
     position: fixed;
-    height: 100%;
-    width: 70%;
-    z-index: 9999999;
+    z-index: 11;
+    width: 220px;
     top: 0;
-    left: 0;
-    display: block;
-    transform: translate(-650px, 0);
-    box-shadow: inset -1px 0 0 var(--accents-2);
-    transition: all 400ms linear;
+    bottom: 0;
+    left: -231px;
+    background-color: var(--accents-1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+    @media(min-width: 768px) {
+      box-shadow: inset -1px 0 0 var(--accents-2);
+    }
 
     &.open {
-        transform: translate(0, 0);
+      left: 0;
     }
 
     @media (min-width: 768px) {
-        background-color: var(--accents-1);
-        position: relative;
-        width: 100%;
-        padding: 0;
-        grid-area: 1/1;
-        display: block;
-        transform: translate(0, 0);
-        transition: all 0s;
-        box-shadow: none;
+      left: 0;
+      z-index: 1;
+      padding-top: 1rem;
     }
-}
+  }
 
-.page {
+  .navbar-scroll {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+  }
+
+  .page {
     @media (min-width: 768px) {
-        grid-area: 1/2;
+      padding-left: 220px;
     }
-}
+  }
 
-#mobile-bar {
+  .page-content {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: calc(40px + 0.5rem) 1rem 2rem;
+    @media (min-width: 768px) {
+      padding: 1rem 1.75rem;
+    }
+  }
+
+  #mobile-bar {
     background-color: var(--white);
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 44px;
-    z-index: 9999999;
-    border-bottom: 1px solid var(--accents-2);
+    height: 40px;
+    z-index: 10;
+    box-shadow: #fff 0 -15px, rgba(0,0,0,0.1) 0 0 15px;
     display: flex;
     align-items: center;
+    text-align: center;
     @media (min-width: 768px) {
-        display: none;
+      display: none;
     }
-}
+  }
+
+  .mobile-button {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 8px;
+    left: 12px;
+    background: url('../assets/img/menu.png') center center no-repeat;
+    background-size: 24px;
+  }
 </style>

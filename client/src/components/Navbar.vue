@@ -1,176 +1,184 @@
 <template>
-    <div id="sidebar">
-        <div>
-            <Logo id="logo"/>
-            <nav id="sidebar-nav">
-                <ul>
-                    <li class="sidebar-nav-subhead">menu</li>
-                    <li v-for="route of this.menuLinks" :key="route.text">
-                        <router-link :to="route.to" class="sidebar-nav-element">
-                            <font-awesome-icon
-                                    :icon="route.icon"
-                                    class="icon"
-                            />
-                            <span>{{ route.text }}</span>
-                        </router-link>
-                    </li>
-                    <li v-if="isCurrentUserRegistered === true">
-                        <span class="sidebar-nav-element">
-                            <font-awesome-icon icon="user" class="icon"/>
-                            <span>account</span>
-                        </span>
-                    </li>
-                    <li v-if="isCurrentUserRegistered === false">
-                        <span @click="$router.push('/login')" class="sidebar-nav-element">
-                            <font-awesome-icon
-                                    icon="sign-in-alt"
-                                    class="icon"
-                            />
-                            <span>log in</span>
-                        </span>
-                    </li>
-                    <li v-else>
-                        <span @click="logout" class="sidebar-nav-element">
-                            <font-awesome-icon
-                                    icon="sign-out-alt"
-                                    class="icon"
-                            />
-                            <span>log out</span>
-                        </span>
-                    </li>
-                    <li class="sidebar-nav-subhead">categories</li>
-                    <li v-for="route of this.categoriesLinks" :key="route.text">
-                        <router-link :to="route.to" class="sidebar-nav-element">
-                            <font-awesome-icon
-                                    :icon="route.icon"
-                                    class="icon"
-                            />
-                            <span>{{ route.text }}</span>
-                        </router-link>
-                    </li>
+  <div id="sidebar">
+    <Logo id="logo" />
+    <nav class="nav-sidebar">
+      <ul class="sidebar-top-level-items">
+        <router-link tag="li" :to="route.to" v-for="route of this.menuLinks" :key="route.text">
+          <a>
+            <font-awesome-icon :icon="route.icon" class="icon" />
+            <span>{{ route.text }}</span>
+          </a>
+          <ul v-if="route.sub" class="sidebar-sub-level-items">
+            <router-link tag="li" :to="sub.to" v-for="sub of route.sub" :key="sub.text">
+              <a>
+                <font-awesome-icon :icon="sub.icon" class="icon" />
+                <span>{{ sub.text }}</span>
+              </a>
+            </router-link>
+          </ul>
+        </router-link>
 
-                    <li class="sidebar-nav-subhead">project</li>
-                    <li>
-                        <a
-                                href="https://github.com/vassbence/bookstore"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="sidebar-nav-element"
-                        >
-                            <font-awesome-icon
-                                    :icon="['fab', 'github']"
-                                    class="icon"
-                            />
-                            <span>on github</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+        <!-- static/conditional menu elements -->
+        <li v-if="isCurrentUserRegistered === true">
+          <a @click="logout">
+            <font-awesome-icon icon="sign-out-alt" class="icon" />
+            <span>log out</span>
+          </a>
+        </li>
+        <li class="sidebar-nav-subhead">project</li>
+        <li>
+          <a
+            href="https://github.com/vassbence/bookstore"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="sidebar-nav-element"
+          >
+            <font-awesome-icon :icon="['fab', 'github']" class="icon" />
+            <span>on github</span>
+          </a>
+        </li>
+        <!-- end -->
+      </ul>
+    </nav>
+  </div>
 </template>
 
 <script>
-    import Logo from './Logo'
-    import {mapActions, mapGetters} from "vuex"
+import Logo from './Logo'
+import { mapActions, mapGetters } from 'vuex'
 
-    export default {
-        name: 'Navbar',
-        data() {
-            return {
-                menuLinks: [
-                    {to: '/search', icon: 'search', text: 'search'},
-                    {to: '/favorites', icon: 'heart', text: 'favorites'},
-                    {to: '/cart', icon: 'shopping-cart', text: 'cart'},
-                ],
-                categoriesLinks: [
-                    {
-                        to: '/search?q=subject:juvenile',
-                        icon: 'child',
-                        text: 'for kids',
-                    },
-                    {
-                        to: '/search?q=subject:sport',
-                        icon: 'futbol',
-                        text: 'sports',
-                    },
-                    {
-                        to: '/search?q=inpublisher:manning+publications',
-                        icon: 'ellipsis-h',
-                        text: 'others',
-                    },
-                ],
-            }
+export default {
+  name: 'Navbar',
+  components: {
+    Logo,
+  },
+  computed: {
+    ...mapGetters(['isCurrentUserRegistered']),
+    menuLinks() {
+      const array = [
+        {
+          to: '/search',
+          icon: 'search',
+          text: 'search',
+          sub: [
+            {
+              to: '/search?q=subject:juvenile',
+              icon: 'child',
+              text: 'for kids',
+            },
+            {
+              to: '/search?q=subject:sport',
+              icon: 'futbol',
+              text: 'sports',
+            },
+            {
+              to: '/search?q=inpublisher:manning+publications',
+              icon: 'ellipsis-h',
+              text: 'others',
+            },
+          ],
         },
-        components: {
-            Logo,
+        { to: '/favorites', icon: 'heart', text: 'favorites' },
+        {
+          to: '/cart',
+          icon: 'shopping-cart',
+          text: 'cart',
+          sub: [{ to: '/cart/checkout', icon: 'coins', text: 'checkout' }],
         },
-        computed: mapGetters(['isCurrentUserRegistered']),
-        methods: mapActions(['logout'])
-    }
+      ]
+
+      if (this.isCurrentUserRegistered === true) {
+        array.push({ to: '/account', icon: 'user', text: 'account' })
+      } else {
+        array.push({ to: '/login', icon: 'sign-in-alt', text: 'log in' })
+      }
+
+      return array
+    },
+  },
+  methods: mapActions(['logout']),
+}
 </script>
 
 <style scoped lang="scss">
-    #sidebar {
-        display: block;
-        user-select: none;
-        font-size: 0.875rem;
-        font-weight: 700;
-        text-transform: uppercase;
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
 
-        @media (min-width: 768px) {
-            position: sticky;
-            top: 2rem;
-            display: flex;
-            height: calc(100vh - 4rem);
-            justify-content: flex-end;
-            padding-right: 1.75rem;
-            box-shadow: inset -1px 0 0 var(--accents-2);
-        }
-    }
+#sidebar {
+  display: block;
+  user-select: none;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
 
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
 
-    li:nth-child(1) {
-        margin-top: 0;
-    }
+.nav-sidebar li a {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  color: var(--gray);
+}
 
-    .sidebar-nav-element {
-        display: inline-flex;
-        align-items: center;
-        cursor: pointer;
-        color: var(--gray);
-        text-decoration: none;
-        padding: 8px 0;
+.nav-sidebar li.router-link-active {
+  box-shadow: inset 4px 0 0 var(--black);
+}
 
-        &.router-link-exact-active {
-            color: var(--black);
-        }
+.sidebar-top-level-items {
+  margin-top: 1.75rem;
+}
 
-        &:active {
-            opacity: 0.5;
-        }
-    }
+.sidebar-top-level-items > li.router-link-active {
+  background: rgba(0, 0, 0, 0.04);
+}
 
-    .sidebar-nav-subhead {
-        display: inline-flex;
-        align-items: center;
-        margin-top: 2rem;
-        color: var(--black);
-    }
+.sidebar-top-level-items > li.router-link-active > a {
+  color: var(--black);
+}
 
-    .icon {
-        margin-right: 8px;
-    }
+.sidebar-top-level-items > li.router-link-active .sidebar-sub-level-items {
+  display: block;
+}
 
-    #logo {
-        display: none;
-        @media (min-width: 768px) {
-            display: block;
-        }
-    }
+.sidebar-sub-level-items {
+  display: none;
+  padding-bottom: 8px;
+}
+
+.sidebar-sub-level-items > li a {
+  padding-left: 40px;
+}
+
+.sidebar-sub-level-items > li.router-link-exact-active a {
+  color: var(--black);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.sidebar-nav-subhead {
+  display: flex;
+  align-items: center;
+  margin-top: 1.75rem;
+  padding: 0 15px;
+  color: var(--black);
+}
+
+.icon {
+  margin-right: 8px;
+}
+
+#logo {
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+    padding: 0 15px;
+  }
+}
 </style>

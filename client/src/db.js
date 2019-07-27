@@ -1,5 +1,3 @@
-import firebase from "firebase"
+import firebase from 'firebase'
 
-const currentUserID = firebase.auth().currentUser.uid;
-
-export const booksRef = firebase.database().ref("/users/"+currentUserID+'/books');
+export const booksRef = firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/books')

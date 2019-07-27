@@ -4,12 +4,12 @@ A sleek SPA integrating Google's Books APIs.
 
 ## Features
 
--   Firebase back-end 🔥
-    -   NoSQL realtime database
-    -   Authentication w/ the option of staying anonymous
--   Vue front-end 🖖
-    -   Responsive thanks to native CSS grid and flexbox
-    -   Performant and lightweight
+- Firebase back-end 🔥
+  - NoSQL realtime database
+  - Authentication w/ the option of staying anonymous
+- Vue front-end 🖖
+  - Responsive thanks to native CSS grid and flexbox
+  - Performant and lightweight
 
 ## Screenshots
 
