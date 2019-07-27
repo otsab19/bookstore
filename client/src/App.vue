@@ -35,7 +35,7 @@ body {
   --accents-1: #fafbfc;
   --accents-2: #eaeaea;
   --gray: #707070;
-  --black: #000000;
+  --black: #2e2e2e;
 }
 
 ::selection {
