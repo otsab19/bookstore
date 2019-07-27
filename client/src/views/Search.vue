@@ -59,6 +59,7 @@
     methods: {
       searchBooks(keyword) {
         this.isLoading = true
+        this.searchedBooks = []
         axios
             .get(`https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=21`)
             .then(({data}) => {
@@ -128,14 +129,16 @@
       },
     },
     mounted() {
-      this.query && this.searchBooks(this.query)
+      if(this.query) {
+        this.searchInput = this.query;
+        this.searchBooks(this.searchInput)
+      }
     },
     watch: {
-      query() {
-        if (this.query) {
-          this.searchBooks(this.query)
-        } else {
-          this.searchedBooks = []
+      query: function(val, oldVal) {
+        if(val) {
+          this.searchInput = val
+          this.searchBooks(this.searchInput)
         }
       },
     },
