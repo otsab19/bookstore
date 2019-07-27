@@ -48,12 +48,13 @@
   .big-button-wrapper {
     display:flex;
     flex-direction: row;
-    scroll-snap-type: x mandatory;
     overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
   }
 
   .big-button {
-    scroll-snap-align: center;
+    scroll-snap-align: start;
     cursor: pointer;
     font-size: 2rem;
     font-weight: 700;
