@@ -33,7 +33,7 @@ export default {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-gap: 1.75rem;
-  margin: 1.75rem 0;
+  margin: 1.75rem 0 0;
   @media (min-width: 1025px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
