@@ -23,7 +23,7 @@ import {
   faBars,
   faEnvelope,
   faKey,
-    faSync
+  faSync,
 } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -54,7 +54,7 @@ library.add(
   faBars,
   faEnvelope,
   faKey,
-    faSync
+  faSync
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
