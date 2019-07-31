@@ -65,7 +65,7 @@
 
 <style scoped lang="scss">
   .navbar {
-    transition: width 0.3s, left 0.3s;
+    transition: all .25s ease-in-out;
     position: fixed;
     z-index: 11;
     width: 220px;
