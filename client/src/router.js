@@ -21,7 +21,7 @@ export const router = new Router({
           path: 'search',
           name: 'search',
           component: () => import('./views/Search.vue'),
-          props: route => ({query: route.query.q}),
+          props: route => ({ query: route.query.q }),
         },
         {
           path: 'favorites',
@@ -39,7 +39,7 @@ export const router = new Router({
             requiresAuth: true,
           },
         },
-      ]
+      ],
     },
     {
       path: '/login',
@@ -51,7 +51,7 @@ export const router = new Router({
       name: 'register',
       component: () => import('./views/Register.vue'),
     },
-    { path: '*', redirect: '/' }
+    { path: '*', redirect: '/' },
   ],
 })
 

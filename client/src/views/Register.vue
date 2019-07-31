@@ -26,7 +26,7 @@ export default {
   name: 'register',
   components: {
     UserForm,
-    Button
+    Button,
   },
   data() {
     return {
@@ -34,29 +34,29 @@ export default {
         email: '',
         password: '',
       },
-      isLoading: false
+      isLoading: false,
     }
   },
   methods: {
     ...mapActions(['register']),
     async onInput() {
-      this.isLoading = true;
+      this.isLoading = true
       await this.register(this.user)
-      this.isLoading = false;
-    }
+      this.isLoading = false
+    },
   },
 }
 </script>
 
 <style scoped lang="scss">
-  #page {
-    background-color: var(--white);
-    min-height: 100vh;
-    padding: 20vh 1rem 0;
-    margin: 0 auto;
+#page {
+  background-color: var(--white);
+  min-height: 100vh;
+  padding: 20vh 1rem 0;
+  margin: 0 auto;
 
-    @media (min-width: 768px) {
-      background-color: var(--accents-1);
-    }
+  @media (min-width: 768px) {
+    background-color: var(--accents-1);
   }
+}
 </style>

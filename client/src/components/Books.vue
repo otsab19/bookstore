@@ -1,27 +1,50 @@
 <template>
-  <div id="books">
-    <div id="book" v-for="book of value" :key="book._bookid">
-      <div style="display: flex;">
-        <img id="book-thumbnail" :src="book.thumbnail" alt="thumbnail" />
-        <div id="book-info">
-          <h3 id="book-info-title">{{ book.title }}</h3>
-          <span id="book-info-authors">{{ book.authors }}</span>
-          <span id="book-info-categories">{{ book.categories }}</span>
+  <div class="books">
+    <template v-if="loading">
+      <div class="book" v-for="n in 7" :key="n">
+        <div style="display: flex">
+          <SkeletonBox class="book-thumbnail" width="110px" height="160px" />
+          <div class="book-info" style="display: flex; flex: 1;">
+            <SkeletonBox class="book-info-title" />
+            <SkeletonBox class="book-info-authors" />
+            <SkeletonBox class="book-info-categories" />
+          </div>
         </div>
       </div>
-      <div class="book-buttons">
-        <slot name="buttons" :book="book" />
+    </template>
+    <template v-else>
+      <div class="book" v-for="book of value" :key="book._bookid">
+        <div style="display: flex">
+          <img class="book-thumbnail" :src="book.thumbnail" alt="thumbnail" />
+          <div class="book-info">
+            <h3 class="book-info-title">{{ book.title }}</h3>
+            <span class="book-info-authors">{{ book.authors }}</span>
+            <span class="book-info-categories">{{ book.categories }}</span>
+          </div>
+        </div>
+        <div class="book-buttons">
+          <slot name="buttons" :book="book" />
+        </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
 <script>
+import SkeletonBox from '@/components/SkeletonBox'
+
 export default {
   name: 'Books',
+  components: {
+    SkeletonBox,
+  },
   props: {
     value: {
       type: Array,
+      required: true,
+    },
+    loading: {
+      type: Boolean,
       required: true,
     },
   },
@@ -29,7 +52,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#books {
+.books {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-gap: 1.75rem;
@@ -39,7 +62,7 @@ export default {
   }
 }
 
-#book {
+.book {
   display: flex;
   flex-direction: column;
   padding: 0.75rem 1.5rem;
@@ -49,13 +72,13 @@ export default {
   z-index: 5;
   background-color: var(--white);
 
-  @media(min-width: 768px) {
+  @media (min-width: 768px) {
     padding: 1rem 2rem;
   }
 }
 
-#book-thumbnail {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.book-thumbnail {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   transform: translate(0, -35px);
   user-select: none;
@@ -63,14 +86,14 @@ export default {
   height: 160px;
 }
 
-#book-info {
+.book-info {
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
   margin-left: 15px;
 }
 
-#book-info-title {
+.book-info-title {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -80,7 +103,7 @@ export default {
   margin: 0;
 }
 
-#book-info-authors {
+.book-info-authors {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -90,7 +113,7 @@ export default {
   margin: 8px 0;
 }
 
-#book-info-categories {
+.book-info-categories {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;

@@ -26,7 +26,7 @@ export default {
   name: 'login',
   components: {
     UserForm,
-    Button
+    Button,
   },
   data() {
     return {
@@ -34,16 +34,16 @@ export default {
         email: '',
         password: '',
       },
-      isLoading: false
+      isLoading: false,
     }
   },
   methods: {
     ...mapActions(['login']),
     async onInput() {
-      this.isLoading = true;
+      this.isLoading = true
       await this.login(this.user)
-      this.isLoading = false;
-    }
+      this.isLoading = false
+    },
   },
 }
 </script>

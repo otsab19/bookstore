@@ -1,25 +1,22 @@
-import firebase from 'firebase'
-import { router } from '../../router'
-
 const state = {
-  isNavbarOpen: false
+  isNavbarOpen: false,
 }
 
 const getters = {
-  isNavbarOpen: (state) => state.isNavbarOpen
+  isNavbarOpen: state => state.isNavbarOpen,
 }
 
 const actions = {
-  openNavbar({commit}) {
+  openNavbar({ commit }) {
     commit('setNavbarState', true)
   },
-  closeNavbar({commit}) {
+  closeNavbar({ commit }) {
     commit('setNavbarState', false)
-  }
+  },
 }
 
 const mutations = {
-  setNavbarState: (state, payload) => state.isNavbarOpen = payload
+  setNavbarState: (state, payload) => (state.isNavbarOpen = payload),
 }
 
 export default {
