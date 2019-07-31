@@ -10,6 +10,9 @@
             <SkeletonBox class="book-info-categories" />
           </div>
         </div>
+        <div class="book-buttons">
+          <SkeletonBox :minWidth="20" :maxWidth="30" />
+        </div>
       </div>
     </template>
     <template v-else>
