@@ -9,6 +9,10 @@ export default {
 </script>
 
 <style lang="scss">
+html {
+  overflow-y: scroll;
+}
+
 body {
   margin: 0;
   padding: 0;

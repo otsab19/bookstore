@@ -10,7 +10,7 @@
             <SkeletonBox class="book-info-categories" />
           </div>
         </div>
-        <div class="book-buttons">
+        <div class="book-buttons" style="height: 30px">
           <SkeletonBox :minWidth="20" :maxWidth="30" />
         </div>
       </div>
