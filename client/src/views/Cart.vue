@@ -1,7 +1,7 @@
 <template>
   <div>
     <Bar icon="shopping-cart" text="Cart" />
-    <Books v-model="cartBooks" :loading="cartBooks === null">
+    <Books v-model="cartBooks" :loading="isLoading">
       <template v-slot:buttons="{ book }">
         <span v-if="!book._isFavorited" style="display: flex; margin-right: auto">
           <Button icon="heart" @click.native="plusFav(book)"></Button>
@@ -31,11 +31,14 @@ export default {
   },
   data() {
     return {
-      cartBooks: null,
+      cartBooks: [],
+      isLoading: true,
     }
   },
-  firebase: {
-    cartBooks: booksRef.orderByChild('_cartedQuantity').startAt(1),
+  created() {
+    this.$rtdbBind('cartBooks', booksRef.orderByChild('_cartedQuantity').startAt(1)).then(
+      () => (this.isLoading = false)
+    )
   },
   methods: {
     plusFav(book) {

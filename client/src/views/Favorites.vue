@@ -1,7 +1,7 @@
 <template>
   <div>
     <Bar icon="heart" text="Favorites" />
-    <Books v-model="favoriteBooks" :loading="favoriteBooks === null">
+    <Books v-model="favoriteBooks" :loading="isLoading">
       <template v-slot:buttons="{ book }">
         <span style="display: flex; margin-right: auto">
           <Button icon="trash" @click.native="minusFav(book)"></Button>
@@ -34,12 +34,14 @@ export default {
   },
   data() {
     return {
-      favoriteBooks: null,
-      loading: true,
+      favoriteBooks: [],
+      isLoading: true,
     }
   },
-  firebase: {
-    favoriteBooks: booksRef.orderByChild('_isFavorited').equalTo(true),
+  created() {
+    this.$rtdbBind('favoriteBooks', booksRef.orderByChild('_isFavorited').equalTo(true)).then(
+      () => (this.isLoading = false)
+    )
   },
   methods: {
     minusFav(book) {

@@ -65,13 +65,13 @@ export default {
 
 <style scoped lang="scss">
 .navbar {
-  transition: all 0.25s ease-in-out;
+  transition: transform 0.2s ease;
   position: fixed;
   z-index: 11;
   width: 220px;
   top: 0;
   bottom: 0;
-  left: -231px;
+  transform: translateX(-110%);
   background-color: var(--accents-1);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
@@ -80,11 +80,11 @@ export default {
   }
 
   &.open {
-    left: 0;
+    transform: translateX(0);
   }
 
   @media (min-width: 768px) {
-    left: 0;
+    transform: translateX(0);
     z-index: 1;
     padding-top: 1rem;
   }
