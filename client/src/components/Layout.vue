@@ -106,7 +106,7 @@ export default {
   max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
-  padding: calc(40px + 0.5rem) 1rem 2rem;
+  padding: calc(40px + 0.5rem) 1rem 1rem;
   @media (min-width: 768px) {
     padding: 1rem 1.75rem;
   }

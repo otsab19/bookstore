@@ -124,7 +124,7 @@ ul {
 .nav-sidebar li a {
   display: flex;
   align-items: center;
-  padding: 12px 15px;
+  padding: 12px 1rem;
   color: var(--gray);
 }
 
@@ -166,7 +166,7 @@ ul {
   display: flex;
   align-items: center;
   margin-top: 1.75rem;
-  padding: 0 15px;
+  padding: 0 1rem;
   color: var(--black);
 }
 
@@ -178,7 +178,7 @@ ul {
   display: none;
   @media (min-width: 768px) {
     display: block;
-    padding: 0 15px;
+    padding: 0 1rem;
   }
 }
 </style>
